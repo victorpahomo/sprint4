@@ -2,10 +2,8 @@ import React from 'react'
 import { useAuth } from '../context/authContext'
 
 const Home = () => {
-/*     const {user} = useAuth()
-    console.log(user); */
+
     const {user,logout,loading} = useAuth()
-    console.log(user);
 
     const handleLogout = async () => {
         await logout()
