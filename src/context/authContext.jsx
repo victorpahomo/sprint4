@@ -30,11 +30,12 @@ export function AuthProvider({ children }) {
 
     // Verificar si el usuario esta logueado
     useEffect(() => {
+        // Nos suscribimos a los cambios de estado de la autenticacion
        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser)
-            setLoading(false)
+            setUser(currentUser)// Actualizamos el estado del usuario
+            setLoading(false)// Actualizamos el estado de carga
         })
-        return unsubscribe();
+        return unsubscribe();// Nos desuscribimos de los cambios de estado de la autenticacion
     }, [])
 
 
