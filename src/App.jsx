@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import './App.css'
+import {Routes,Route} from 'react-router-dom'
+import Home from './pages/Home'
+import Login from './auth/Login'
+import Register from './auth/Register'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <h1 className='text-7xl font-josefin text-blue-800'>Probando Tailwind</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+    </Routes>
   )
 }
 
