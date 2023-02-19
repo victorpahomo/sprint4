@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuth } from '../context/AuthContext'
+import Navbar from '../layout/Navbar'
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
     <div>
          <h1>Welcome {user.displayName || user.email}</h1>
          <button onClick={handleLogout}>Logout</button>
+         <Navbar />
     </div>
  
   )
