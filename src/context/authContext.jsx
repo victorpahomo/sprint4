@@ -12,29 +12,34 @@ export const useAuth = () => {
 
 // Provider
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(null)// Estado del usuario
+    const [loading, setLoading] = useState(true)// Estado de carga
+
+    // Registrar usuario
     const signUp = (email, password) => {
         createUserWithEmailAndPassword(auth, email, password)
     }
+    // Iniciar sesion
     const login = (email, password) => {
         signInWithEmailAndPassword(auth, email, password)
     }
+    // Cerrar sesion
     const logout = () => {
         signOut(auth)
     }
 
+    // Verificar si el usuario esta logueado
     useEffect(() => {
-        console.log("Auth Provider loaded");
-        onAuthStateChanged(auth, currentUser => {
+       const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
             setLoading(false)
         })
-
+        return unsubscribe();
     }, [])
 
 
     return (
+        // Pasamos los valores al contexto
         <authContext.Provider value={{ signUp, login,logout, user,loading}}>
             {children}
         </authContext.Provider>
