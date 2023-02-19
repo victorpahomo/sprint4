@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { async } from "@firebase/util";
+
 const Register = () => {
   const [user, setUser] = useState({email: "",password: "",});
   const [error, setError] = useState()
@@ -22,7 +22,7 @@ const Register = () => {
       await signUp(user.email, user.password)
       navigate("/")
     } catch (error) {
-      console.log(error.message)
+      setError(error.message);    
     }
   }
 

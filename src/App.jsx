@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './auth/Login'
 import Register from './auth/Register'
-import { AuthProvider } from './context/authContext'
+import { AuthProvider } from './context/AuthContext'
 import { ProtectedRoute } from './auth/ProtectedRoute'
 
 function App() {

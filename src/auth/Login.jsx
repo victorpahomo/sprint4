@@ -1,35 +1,41 @@
 import { useState } from "react";
-import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { async } from "@firebase/util";
+import { useAuth } from "../context/AuthContext";
+
 const Login = () => {
-  const [user, setUser] = useState({email: "",password: "",});
-  const [error, setError] = useState()
-  const { login } = useAuth();
+  const [user, setUser] = useState({ email: "", password: "", });
+  const { login, loginWithGoogle } = useAuth();
+  const [error, setError] = useState("")
   const navigate = useNavigate();
 
-  const handleChange = ({ target: { name, value } }) => {
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('')
+    setError("");
     try {
-      await login(user.email, user.password)
-      navigate("/")
+      await login(user.email, user.password);
+      navigate("/");
     } catch (error) {
-      console.log(error.message)
+      setError(error.message);
+    }
+  };
+
+  const handleChange = ({ target: { value, name } }) =>
+    setUser({ ...user, [name]: value });
+
+  const handleGoogleSignin = async () => {
+    try {
+      await loginWithGoogle();
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
     }
   }
 
   return (
     <div>
       {error && <p>{error}</p>}
-      <form action="" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -46,8 +52,10 @@ const Login = () => {
           onChange={handleChange}
         />
 
-        <button>Login</button>
+        <button type="submit">Login</button>
       </form>
+
+      <button onClick={handleGoogleSignin}>Google Login</button>
     </div>
   );
 };
