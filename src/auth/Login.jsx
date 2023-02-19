@@ -1,12 +1,55 @@
-
+import { useState } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { async } from "@firebase/util";
 const Login = () => {
+  const [user, setUser] = useState({email: "",password: "",});
+  const [error, setError] = useState()
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleChange = ({ target: { name, value } }) => {
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('')
+    try {
+      await login(user.email, user.password)
+      navigate("/")
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
-    <form action="">
-        <input type="email" name="email" id="email" />
+    <div>
+      {error && <p>{error}</p>}
+      <form action="" onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="example@company.com"
+          onChange={handleChange}
+        />
 
-        <input type="password" name="password" id="password" />
-    </form>
-  )
-}
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          onChange={handleChange}
+        />
 
-export default Login
+        <button>Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
