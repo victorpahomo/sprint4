@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [user, setUser] = useState({ email: "", password: "", });
-  const { login, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle,loginWithFacebook } = useAuth();
   const [error, setError] = useState("")
   const navigate = useNavigate();
 
@@ -31,10 +32,18 @@ const Login = () => {
       setError(error.message);
     }
   }
+  const handleFacebookSignin = async () => {
+    try {
+      await loginWithFacebook();
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
+    }
+  }
 
   return (
     <div>
-      {error && <p>{error}</p>}
+      {error && <Alert message={error} />}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
@@ -56,6 +65,7 @@ const Login = () => {
       </form>
 
       <button onClick={handleGoogleSignin}>Google Login</button>
+      <button onClick={handleFacebookSignin} >Facebook Login</button>
     </div>
   );
 };

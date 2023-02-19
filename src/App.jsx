@@ -5,6 +5,7 @@ import Login from './auth/Login'
 import Register from './auth/Register'
 import { AuthProvider } from './context/AuthContext'
 import { ProtectedRoute } from './auth/ProtectedRoute'
+import Profile from './pages/Profile'
 
 function App() {
 
@@ -12,6 +13,8 @@ function App() {
     <AuthProvider>
       <Routes>
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute> } />// ProtectedRoute is used to protect the routes that are only accessible to authenticated users
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute> } />// ProtectedRoute is used to protect the routes that are only accessible to authenticated users
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
