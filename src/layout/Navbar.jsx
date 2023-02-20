@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div className="fixed bottom-0 w-screen text-center">
-      <div className=" bg-cyan-900 flex justify-evenly items-center p-4">
-        <Link to="/home" className="flex flex-col justify-center items-center">
+      <div className="bg-white flex justify-evenly items-center p-4">
+        <Link to="/" className="flex flex-col justify-center items-center">
           <svg
-            className="fill-current text-white hover:text-yellow-500"
+            className="fill-current text-black hover:text-yellow-500"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -23,7 +23,7 @@ const Navbar = () => {
           className="flex flex-col justify-center items-center"
         >
           <svg
-            className="fill-current text-white hover:text-yellow-500"
+            className="fill-current text-black hover:text-yellow-500"
             xmlns="http://www.w3.org/2000/svg"
             width="26"
             height="26"
@@ -39,7 +39,7 @@ const Navbar = () => {
           className="flex flex-col justify-center items-center"
         >
           <svg
-            className="fill-current text-white hover:text-yellow-500"
+            className="fill-current text-black hover:text-yellow-500"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -55,7 +55,7 @@ const Navbar = () => {
           className="flex flex-col justify-center items-center"
         >
           <svg
-            className="fill-current text-white hover:text-yellow-500"
+            className="fill-current text-black hover:text-yellow-500"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"

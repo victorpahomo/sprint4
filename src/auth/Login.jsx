@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
+import Loading from '../components/Loading';
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({ email: "", password: "", });
   const { login, loginWithGoogle,loginWithFacebook } = useAuth();
   const [error, setError] = useState("")
@@ -41,8 +43,16 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // 0.8 segundos
+
+    return () => clearTimeout(timeout);
+  }, []);
   return (
     <div>
+      {isLoading && <Loading />}
       {error && <Alert message={error} />}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>

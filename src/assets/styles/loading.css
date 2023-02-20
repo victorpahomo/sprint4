@@ -1,0 +1,24 @@
+.loader {
+    display: flex;
+    background-color: #FFE031;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.loader .classSVG {
+    animation: breath .7s ease-in-out infinite;
+}
+
+@keyframes breath {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
