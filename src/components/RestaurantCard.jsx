@@ -3,12 +3,12 @@ import { useData } from '../context/DataContext'
 import { useInfo } from '../context/HandleInfoContext'
 import { useNavigate } from 'react-router-dom'
 const RestaurantCard = () => {
-    const { saveData, updatedDbFirestore,encontrarCategoria } = useData()
+    const { saveData, updatedDbFirestore,findCategory } = useData()
     const {setRestaurantSelected} = useInfo()
     const navigate = useNavigate()
 /*     //USando Query  
     const prueba = async () => {
-        console.log(await encontrarCategoria("snacks"));
+        console.log(await findCategory("snacks"));
     }
     prueba()
     console.log(updatedDbFirestore);

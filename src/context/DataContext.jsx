@@ -36,12 +36,26 @@ export function DataProvider({ children }) {
         }
     }
 
-    const encontrarCategoria = async (categoria) => {
+    const getRestaurant = async (id) => {
+        try {
+            const docRef = doc(db, "restaurant", id);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                return docSnap.data();
+            } else {
+                console.log("No such document!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const findCategory = async (category) => {
         // Create a reference to the restaurant collection
         const restaurantRef = collection(db, "restaurant");
       
         // Create a query against the collection
-        const q = query(restaurantRef, where("food-categories", "array-contains", categoria));
+        const q = query(restaurantRef, where("food-categories", "array-contains", category));
       
         // Get the documents that match the query
         const querySnapshot = await getDocs(q);
@@ -74,7 +88,8 @@ export function DataProvider({ children }) {
                 value={{
                     saveData,
                     updatedDbFirestore,
-                    encontrarCategoria,
+                    findCategory,
+                    getRestaurant,
                 }}
             >
                 {children}
