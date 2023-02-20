@@ -6,7 +6,7 @@ import { useData } from '../context/DataContext'
 const Profile = () => {
 
   const { logout, user } = useAuth()
-  const { saveData } = useData()
+  const { saveData, updatedDbFirestore} = useData()
 
   const handleLogout = async () => {
     try {
@@ -22,10 +22,11 @@ const Profile = () => {
       name: "Restaurant Prueba",
       description: "Restaurant de prueba"
     }
+    saveData(data)
   } */
   
-
-  saveData(data)
+  console.log(updatedDbFirestore)
+  
 
   return (
     <div>
