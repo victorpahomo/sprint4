@@ -3,11 +3,17 @@ import { Alert } from '../components/Alert';
 import { useInfo } from '../context/HandleInfoContext'
 import { useNavigate } from 'react-router-dom';
 const Product = () => {
-  const { restaurantSelected,setProductSelected } = useInfo();
+  const { restaurantSelected,setProductSelected,setrestaurantToSend} = useInfo();
   const navigate = useNavigate();
 
+  
   const handleClick = (product) => {
     setProductSelected(product);
+    setrestaurantToSend({
+      id: restaurantSelected.id,
+      nameR: restaurantSelected.name,
+      logo: restaurantSelected.logo
+    })
     navigate("/product");
     }
   return (

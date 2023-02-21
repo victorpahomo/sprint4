@@ -11,9 +11,13 @@ export const useInfo = () => {
 }
 
 export function InfoProvider({ children }) {
-
-    const [restaurantSelected, setRestaurantSelected] = useState(null)
+    // Estado de restaurante seleccionado, se usa en RestaurantCard.jsx
+    const [restaurantSelected, setRestaurantSelected] = useState(null)//
+    // Estado de producto seleccionado, se usa en Restaurant.jsx
     const [productSelected, setProductSelected] = useState(null)
+    // Estado de restaurante a enviar a LS, se usa en Restaurant.jsx y Product.jsx
+    const [restaurantToSend, setrestaurantToSend] = useState(null)
+
 
     useEffect(() => {
     }, []);
@@ -29,6 +33,8 @@ export function InfoProvider({ children }) {
                     setRestaurantSelected,
                     productSelected,
                     setProductSelected,
+                    restaurantToSend,
+                    setrestaurantToSend
                 }}
             >
                 {children}
