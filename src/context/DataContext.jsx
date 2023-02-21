@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../api/firebase";
-import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, getDoc, setDoc, query, where } from "firebase/firestore"
-
+import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, getDoc, setDoc, query, where, updateDoc, arrayUnion } from "firebase/firestore"
+import { useAuth } from "./AuthContext";
 // Contexto
 const dataContext = createContext();
 
@@ -13,12 +13,12 @@ export const useData = () => {
 }
 
 export function DataProvider({ children }) {
-    /*     const [data, setData] = useState({})// Estado de los datos
-     *//*     const [loading, setLoading] = useState(true)// Estado de carga
- */
+    // Creamos una variable de estado para almacenar la información de la base de datos
     const [dbFirestore, setDbFirestore] = useState([])
     // Creamos una variable de estado adicional para almacenar la información actualizada
     const [updatedDbFirestore, setUpdatedDbFirestore] = useState([]);
+
+    const { user } = useAuth(); // lo usaremos para editar la información de la base de datos    
 
     const saveData = async (data) => {
         try {
@@ -79,6 +79,34 @@ export function DataProvider({ children }) {
         
     }
 
+    const setOrderToFirestore = async (data) => {
+        const docRef = doc(db, 'users', user.uid);
+        try {
+          await updateDoc(docRef, {
+            orders: arrayUnion(data)
+          });
+          console.log('El campo fue actualizado exitosamente.');
+        } catch (error) {
+          console.error('Error al actualizar el campo:', error);
+        }
+      };
+
+      const getOrdersFromFirestore = async () => {
+        const docRef = doc(db, 'users', user.uid);
+        try {
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const orders = docSnap.get('orders');
+            return orders;
+          } else {
+            console.log('No se encontró el documento en Firestore');
+            return null;
+          }
+        } catch (error) {
+          console.error('Error al obtener datos de Firestore:', error);
+          return null;
+        }
+      };
 
 
 
@@ -107,6 +135,8 @@ export function DataProvider({ children }) {
                 updatedDbFirestore,
                 findCategory,
                 findDishCategory,
+                setOrderToFirestore,
+                getOrdersFromFirestore,
             }}
         >
             {children}

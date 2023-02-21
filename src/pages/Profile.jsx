@@ -6,7 +6,7 @@ import { useData } from '../context/DataContext'
 const Profile = () => {
 
   const { logout, user } = useAuth()
-
+console.log(user);
   const handleLogout = async () => {
     try {
       await logout();
