@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Alert } from '../components/Alert';
 import { useInfo } from '../context/HandleInfoContext'
 import { useNavigate } from 'react-router-dom';
+import Cart from '../components/Cart';
 const Product = () => {
   const { restaurantSelected,setProductSelected,setrestaurantToSend} = useInfo();
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ const Product = () => {
             
           </>
         )}
+        <Cart />
     </div>
   );
 };

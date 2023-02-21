@@ -3,7 +3,6 @@ import { useInfo } from '../context/HandleInfoContext';
 
 const Product = () => {
   const { productSelected, restaurantToSend } = useInfo();
-  console.log(productSelected);
   const [quantity, setQuantity] = useState(1); // Estado local para controlar la cantidad
 
   const addToCart = () => {
@@ -74,6 +73,13 @@ const Product = () => {
     return total;
   };
 
+  const updateOrderTotal = () => {
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let totalItems = orders.reduce((acc, order) => acc + order.dishes.reduce((acc, dish) => acc + dish.quantity, 0), 0);
+    localStorage.setItem("totalItems", totalItems);
+  };
+  
+
   return (
     <div>
       <img src={productSelected.image} alt="Product image" />
@@ -86,7 +92,7 @@ const Product = () => {
       <p>{productSelected.price}</p>
 
       <div>
-        <button onClick={addToCart}>Agregar al carrito</button>
+        <button onClick={()=> {addToCart(); updateOrderTotal()}}>Agregar al carrito</button>
         <div>
           <button onClick={() => handleQuantityChange(-1)}>-</button>
           <span>{quantity}</span>

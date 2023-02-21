@@ -11,7 +11,9 @@ import { DataProvider } from './context/DataContext'
 import Product from './pages/Product'
 import { InfoProvider } from './context/HandleInfoContext'
 import Restaurant from './pages/Restaurant'
-
+import Checkout from './pages/Checkout'
+import OrderAccepted from './pages/OrderAccepted'
+import CurrentOrder from './pages/CurrentOrder'
 function App() {
 
   return (
@@ -27,6 +29,9 @@ function App() {
             <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
             <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
             <Route path="/restaurant" element={<ProtectedRoute><Restaurant /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
+            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
+            <Route path="/orderaccepted" element={<ProtectedRoute><OrderAccepted /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
+            <Route path="/currentOrder" element={<ProtectedRoute><CurrentOrder /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
 
 
             <Route path="/login" element={<Login />} />
