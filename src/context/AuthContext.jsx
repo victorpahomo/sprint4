@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from "firebase/auth"
-import { auth } from "../api/firebase";
+import { auth, db } from "../api/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
 // Contexto
 const authContext = createContext();
 
@@ -18,8 +20,9 @@ export function AuthProvider({ children }) {
 
     // Registrar usuario
     const signUp = async (email, password) => {
-       await createUserWithEmailAndPassword(auth, email, password)
-
+       const userInfo = await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {return userCredential})
+      const docuRef = doc(db,`users/${userInfo.user.uid}`);
+      setDoc(docuRef, {email:email, rol:"user",orders:[] });
     }
     // Iniciar sesion
     const login =  async (email, password) => {
@@ -30,14 +33,18 @@ export function AuthProvider({ children }) {
         signOut(auth)
     }
 
-    const loginWithGoogle = () => {
+    const loginWithGoogle = async () => {
         const googleProvider = new GoogleAuthProvider();
-        return signInWithPopup(auth, googleProvider)
+        const userInfo = await signInWithPopup(auth, googleProvider)
+        const docuRef = doc(db,`users/${userInfo.user.uid}`);
+        setDoc(docuRef, {email:userInfo.user.email, rol:"user",orders:[] });
     }
 
-    const loginWithFacebook = () => {
+    const loginWithFacebook = async () => {
         const facebookProvider = new FacebookAuthProvider();
-        return signInWithPopup(auth, facebookProvider)
+        const userInfo = await signInWithPopup(auth, facebookProvider)
+        const docuRef = doc(db,`users/${userInfo.user.uid}`);
+        setDoc(docuRef, {email:userInfo.user.email, rol:"user",orders:[] });
         }
 
 
