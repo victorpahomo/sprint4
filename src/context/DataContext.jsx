@@ -15,7 +15,7 @@ export const useData = () => {
 export function DataProvider({ children }) {
     /*     const [data, setData] = useState({})// Estado de los datos
      *//*     const [loading, setLoading] = useState(true)// Estado de carga
-  */
+ */
     const [dbFirestore, setDbFirestore] = useState([])
     // Creamos una variable de estado adicional para almacenar la información actualizada
     const [updatedDbFirestore, setUpdatedDbFirestore] = useState([]);
@@ -36,64 +36,79 @@ export function DataProvider({ children }) {
         }
     }
 
-    const getRestaurant = async (id) => {
-        try {
-            const docRef = doc(db, "restaurant", id);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                return docSnap.data();
-            } else {
-                console.log("No such document!");
+    /*     const getRestaurant = async (id) => {
+            try {
+                const docRef = doc(db, "restaurant", id);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    return docSnap.data();
+                } else {
+                    console.log("No such document!");
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+        } */
 
     const findCategory = async (category) => {
         // Create a reference to the restaurant collection
         const restaurantRef = collection(db, "restaurant");
-      
+
         // Create a query against the collection
         const q = query(restaurantRef, where("food-categories", "array-contains", category));
-      
+
         // Get the documents that match the query
         const querySnapshot = await getDocs(q);
-      
+
         // Return an array with the documents data
         return querySnapshot.docs.map((doc) => doc.data());
-      }
-
-
-        useEffect(() => {
-            const getDbFirestore = async () => {
-                try {
-                    const querySnapshot = await getDocs(collection(db, "restaurant"));
-                    const docs = []
-                    querySnapshot.forEach((doc) => {
-                        docs.push({ ...doc.data(), id: doc.id })
-                    });
-                    setDbFirestore(docs)
-                    setUpdatedDbFirestore(docs) // Inicializamos la variable actualizada con la información original
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-            getDbFirestore()
-        }, []);
-
-
-        return (
-            <dataContext.Provider
-                value={{
-                    saveData,
-                    updatedDbFirestore,
-                    findCategory,
-                    getRestaurant,
-                }}
-            >
-                {children}
-            </dataContext.Provider>
-        );
     }
+
+    const findDishCategory = async (category) => {
+        // Create a reference to the restaurant collection
+        const restaurantRef = collection(db, "restaurant");
+
+        const q = collection(restaurantRef, where('menu.category', '==', category))
+
+        // Get the documents that match the query
+        const querySnapshot = await getDocs(q);
+
+        // Return an array with the documents data
+        return querySnapshot.docs.map((doc) => doc.data());
+    }
+
+
+
+
+    useEffect(() => {
+        const getDbFirestore = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "restaurant"));
+                const docs = []
+                querySnapshot.forEach((doc) => {
+                    docs.push({ ...doc.data(), id: doc.id })
+                });
+                setDbFirestore(docs)
+                setUpdatedDbFirestore(docs) // Inicializamos la variable actualizada con la información original
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getDbFirestore()
+    }, []);
+
+
+    return (
+        <dataContext.Provider
+            value={{
+                saveData,
+                updatedDbFirestore,
+                findCategory,
+                findDishCategory,
+            }}
+        >
+            {children}
+        </dataContext.Provider>
+    );
+}
 

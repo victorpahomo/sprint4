@@ -13,10 +13,10 @@ const RestaurantCard = () => {
     prueba()
     console.log(updatedDbFirestore);
      */
-
-    const handleClick = (key) => {
-        setRestaurantSelected(key)
-        navigate("/product")
+    
+    const handleClick = (restaurant) => {
+        setRestaurantSelected(restaurant)
+        navigate("/restaurant")
     }
    
     return (
@@ -24,7 +24,7 @@ const RestaurantCard = () => {
             {
                 updatedDbFirestore && Object.keys(updatedDbFirestore).map((key) => {
                     return (
-                        <div onClick={()=>handleClick(updatedDbFirestore[key].id)} key={key}>
+                        <div onClick={()=>handleClick(updatedDbFirestore[key])} key={key}>
                             <img src={updatedDbFirestore[key].banner} alt="" />
                             <h1>{updatedDbFirestore[key].name}</h1>
                             <h1>{updatedDbFirestore[key].stars}</h1>

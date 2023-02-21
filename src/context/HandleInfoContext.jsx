@@ -13,7 +13,10 @@ export const useInfo = () => {
 export function InfoProvider({ children }) {
 
     const [restaurantSelected, setRestaurantSelected] = useState(null)
+    const [productSelected, setProductSelected] = useState(null)
 
+    useEffect(() => {
+    }, []);
 /*         useEffect(() => {
 
         }, []);
@@ -24,6 +27,8 @@ export function InfoProvider({ children }) {
                 value={{
                     restaurantSelected,
                     setRestaurantSelected,
+                    productSelected,
+                    setProductSelected,
                 }}
             >
                 {children}

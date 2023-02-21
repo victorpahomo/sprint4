@@ -1,29 +1,21 @@
-import React, { useState } from 'react'
-import { Alert } from '../components/Alert';
-import { useData } from '../context/DataContext';
+import React from 'react'
 import { useInfo } from '../context/HandleInfoContext'
 
 const Product = () => {
-  const { restaurantSelected } = useInfo()
-  const { getRestaurant } = useData()
-  const [restaurantObtained, setRestaurantObtained] = useState(null)
-
-  const getRestaurantLocal = async () => {
-    setRestaurantObtained(await getRestaurant(restaurantSelected));
-  }
-  getRestaurantLocal()
-
-
-
+  const {productSelected} = useInfo()
 
   return (
     <div>
-      {!restaurantSelected? <Alert message={"No ha seleccionado un producto"}/>: 
-      <>
-         <img src={restaurantObtained.logo} alt="Restaurant Logo" /> 
-         <img src={restaurantObtained.banner} alt="" />
-         {/* <h1>{restaurantObtained.name}</h1> */}
-      </>}
+      <img src={productSelected.image} alt="Product image" />
+      <div>
+      <h1>{productSelected.name}</h1>
+      <p>{productSelected.cookingTime}</p>
+      </div>
+
+      <p>{productSelected.description}</p>
+      <p>{productSelected.price}</p>
+
+      
     </div>
   )
 }
