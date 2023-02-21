@@ -64,17 +64,19 @@ export function DataProvider({ children }) {
         return querySnapshot.docs.map((doc) => doc.data());
     }
 
-    const findDishCategory = async (category) => {
+    const findDishCategory = async (_category) => {
+        console.log(_category);
         // Create a reference to the restaurant collection
         const restaurantRef = collection(db, "restaurant");
-
-        const q = collection(restaurantRef, where('menu.category', '==', category))
+        const q = query(restaurantRef, where('menu', 'array-contains', { category: "pizza" }))
 
         // Get the documents that match the query
         const querySnapshot = await getDocs(q);
 
         // Return an array with the documents data
         return querySnapshot.docs.map((doc) => doc.data());
+
+        
     }
 
 
