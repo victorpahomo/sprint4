@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from "firebase/auth"
 import { auth, db } from "../api/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { async } from "@firebase/util";
 // Contexto
 const authContext = createContext();
 
