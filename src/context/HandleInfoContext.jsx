@@ -17,6 +17,8 @@ export function InfoProvider({ children }) {
     const [productSelected, setProductSelected] = useState(null)
     // Estado de restaurante a enviar a LS, se usa en Restaurant.jsx y Product.jsx
     const [restaurantToSend, setrestaurantToSend] = useState(null)
+    // Estado de pago, se usa en Checkout.jsx
+    const [payCheck, setpayCheck] = useState(false)
 
 
     useEffect(() => {
@@ -34,7 +36,9 @@ export function InfoProvider({ children }) {
                     productSelected,
                     setProductSelected,
                     restaurantToSend,
-                    setrestaurantToSend
+                    setrestaurantToSend,
+                    payCheck,
+                    setpayCheck,
                 }}
             >
                 {children}
