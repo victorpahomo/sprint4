@@ -12,34 +12,47 @@ const Product = () => {
 
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-    // Buscamos si ya hay un pedido con el mismo id
-    let existingOrder = orders.find(order => order.dishes.some(dish => dish.id === idItem));
+    // Buscamos si ya hay un pedido con el mismo id de restaurante
+    let existingOrder = orders.find(order => order.id === id);
 
-    const newOrder = {
-      id: id,
-      name: nameR,
-      logo: logo,
-      dishes: [{
-        id: idItem,
-        quantity: quantity,
-        name: name,
-        price: price,
-        image: image
-      }]
-    };
     if (existingOrder) {
-      // Si ya existe un pedido con el mismo id, actualizamos la cantidad
-      existingOrder.dishes.find(dish => dish.id === idItem).quantity += quantity;
+      // Si ya existe un pedido para este restaurante, agregamos el nuevo plato a su arreglo de platos
+      let existingDish = existingOrder.dishes.find(dish => dish.id === idItem);
+
+      if (existingDish) {
+        // Si ya existe el mismo plato, actualizamos la cantidad
+        existingDish.quantity += quantity;
+      } else {
+        // Si no existe el mismo plato, lo agregamos al arreglo
+        existingOrder.dishes.push({
+          id: idItem,
+          quantity: quantity,
+          name: name,
+          price: price,
+          image: image
+        });
+      }
     } else {
-      // Si no existe, agregamos el nuevo pedido al arreglo
-      orders.push(newOrder);
+      // Si no existe un pedido para este restaurante, creamos uno nuevo
+      orders.push({
+        id: id,
+        name: nameR,
+        logo: logo,
+        dishes: [{
+          id: idItem,
+          quantity: quantity,
+          name: name,
+          price: price,
+          image: image
+        }]
+      });
     }
 
     // Almacenamos el arreglo actualizado en el localStorage
     localStorage.setItem("orders", JSON.stringify(orders));
 
     // Recalculamos el total después de agregar o actualizar un pedido
-    const total = calculateTotal(orders);
+    const total = calculateTotal(orders.filter(order => order.id === id));
     localStorage.setItem('total', JSON.stringify(total));
   }
 
