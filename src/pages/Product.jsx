@@ -8,7 +8,7 @@ const Product = () => {
   const [alertWarning, setAlertWarning] = useState(false)
   const [alertSuccess, setAlertSuccess] = useState(false)
   const navigate = useNavigate();
-
+  
   const addToCart = () => {
     const { id, nameR, logo } = restaurantToSend;
     const { name, price, image, idItem } = productSelected;

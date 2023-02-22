@@ -4,7 +4,7 @@ import { useInfo } from '../context/HandleInfoContext'
 import { useNavigate } from 'react-router-dom';
 import Cart from '../components/Cart';
 
-const Product = () => {
+const Restaurant = () => {
   const { restaurantSelected, setProductSelected, setrestaurantToSend } = useInfo();
   const navigate = useNavigate();
 
@@ -55,4 +55,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Restaurant;
