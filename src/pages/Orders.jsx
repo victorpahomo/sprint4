@@ -24,21 +24,27 @@ const Orders = () => {
   };
 
   return (
-    <div>
-      <p>Órdenes</p>
-      {orders.map((order, index) => {
-        return (
-          <div onClick={() => handleOrderClick(order)} key={index}>
-            <img src={order.logo} alt="Logo del restaurante" />
-            <div>
-              <p>{order.name}</p>
-              <p>{order.total}</p>
-            </div>
+<div className="container mx-auto px-4 py-6">
+  <h2 className="text-3xl font-bold mb-6">Órdenes</h2>
+  <div className="grid grid-cols-1 gap-6">
+    {orders.map((order, index) => {
+      return (
+        <div
+          className="bg-white rounded-lg shadow-md flex items-center px-6 py-4 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+          onClick={() => handleOrderClick(order)}
+          key={index}
+        >
+          <img src={order.logo} alt="Logo del restaurante" className="w-16 h-16 rounded-full mr-4" />
+          <div>
+            <p className="font-bold text-gray-800">{order.name}</p>
+            <p className="text-gray-600">${order.total}</p>
           </div>
-        );
-      })}
-      <Navbar />
-    </div>
+        </div>
+      );
+    })}
+  </div>
+  <Navbar />
+</div>
   );
 };
 

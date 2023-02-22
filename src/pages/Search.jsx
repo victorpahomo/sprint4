@@ -34,29 +34,45 @@ const Search = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={categoryToSearch} onChange={handleChange} />
-        <button type="submit">Search</button>
-      </form>
-      {submitted && filteredDishes.length ? (
-        filteredDishes.map((dish) => (
-          <div key={dish.name}>
-            <img src={dish.image} alt={dish.name} />
-            <h3>{dish.name}</h3>
-            <p>Price: {dish.price}</p>
+<>
+  <Navbar />
+  <form className="flex items-center justify-center mt-8 mb-4" onSubmit={handleSubmit}>
+    <input
+      type="text"
+      value={categoryToSearch}
+      onChange={handleChange}
+      className="px-4 py-2 mr-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      placeholder="Search for a dish"
+    />
+    <button
+      type="submit"
+      className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+    >
+      Search
+    </button>
+  </form>
+  {submitted && filteredDishes.length ? (
+    <div className="grid gap-8 mx-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-screen-lg">
+      {filteredDishes.map((dish) => (
+        <div key={dish.name} className="flex flex-col justify-between bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
+          <img src={dish.image} alt={dish.name} className="object-cover w-full h-44" />
+          <div className="p-4">
+            <h3 className="text-lg font-medium mb-2">{dish.name}</h3>
+            <p className="text-gray-500">Price: {dish.price}</p>
           </div>
-        ))
-      ) : (
-        submitted && (
-          <div>
-          <img src="https://res.cloudinary.com/dxwzyjefd/image/upload/v1677027958/sprint4/gui-images/notfound.png" alt="not found" />
-          <p>Nothing found</p>
-          </div>
-        )
-      )}
-    </>
+        </div>
+      ))}
+    </div>
+  ) : (
+    submitted && (
+      <div className="flex flex-col items-center justify-center">
+        <img src="https://res.cloudinary.com/dxwzyjefd/image/upload/v1677027958/sprint4/gui-images/notfound.png" alt="not found" className="w-64 h-64 mb-4" />
+        <p className="text-lg font-medium text-gray-500">Nothing found</p>
+      </div>
+    )
+  )}
+</>
+
   );
 };
 

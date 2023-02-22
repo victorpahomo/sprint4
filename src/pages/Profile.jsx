@@ -24,10 +24,10 @@ console.log(user);
     saveData(data)
   } */
   
-  
 
   return (
     <div>
+      <img src={user.photoURL} alt="" />
       <h1>Welcome {user.displayName || user.email}</h1>
       <button onClick={handleLogout}>Logout</button>
       <Navbar />
