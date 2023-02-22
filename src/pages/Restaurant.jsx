@@ -19,7 +19,7 @@ const Product = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row md:space-x-8 md:items-center md:justify-center">
+    <div className="flex flex-col md:flex-row md:space-x-8 md:items-center md:justify-center mb-4">
       {restaurantSelected && (
         <React.Fragment>
           <div className="w-full md:w-1/2">

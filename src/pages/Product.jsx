@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Alert } from '../components/Alert';
 import { useInfo } from '../context/HandleInfoContext';
-
+import { useNavigate } from 'react-router-dom';
 const Product = () => {
   const { productSelected, restaurantToSend } = useInfo();
   const [quantity, setQuantity] = useState(1); // Estado local para controlar la cantidad
   const [alertWarning, setAlertWarning] = useState(false)
   const [alertSuccess, setAlertSuccess] = useState(false)
+  const navigate = useNavigate();
 
   const addToCart = () => {
     const { id, nameR, logo } = restaurantToSend;
@@ -24,7 +25,9 @@ const Product = () => {
       // Restablece el valor de alertWarning a false después de 2 segundos
       setTimeout(() => {
         setAlertSuccess(false);
-      }, 5000);
+        navigate("/restaurant");
+
+      }, 2000);
       // Si ya existe un pedido para este restaurante, agregamos el nuevo plato a su arreglo de platos
       let existingDish = existingOrder.dishes.find(dish => dish.id === idItem);
 
@@ -49,7 +52,8 @@ const Product = () => {
       // Restablece el valor de alertWarning a false después de 2 segundos
       setTimeout(() => {
         setAlertWarning(false);
-      }, 5000);
+        navigate("/restaurant");
+      }, 2000);
 
       newOrders.push({
         id: id,

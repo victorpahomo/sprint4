@@ -24,7 +24,7 @@ const Orders = () => {
   };
 
   return (
-<div className="container mx-auto px-4 py-6">
+<div className="container mx-auto px-4 py-6 mb-4">
   <h2 className="text-3xl font-bold mb-6">Órdenes</h2>
   <div className="grid grid-cols-1 gap-6">
     {orders.map((order, index) => {
