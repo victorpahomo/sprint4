@@ -6,6 +6,7 @@ const Search = () => {
   const { findCategory } = useData();
   const [categoryToSearch, setCategoryToSearch] = useState('');
   const [dishesObtained, setDishesObtained] = useState([]);
+  const [submitted, setSubmitted] = useState(false); // nueva variable de estado
 
   const handleChange = (e) => {
     setCategoryToSearch(e.target.value.toLowerCase().trim());
@@ -19,6 +20,7 @@ const Search = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await searchDishes();
+    setSubmitted(true); // establecer submitted en true después de hacer clic en enviar
   };
 
   const filteredDishes = dishesObtained.reduce((acc, curr) => {
@@ -30,7 +32,6 @@ const Search = () => {
     }));
     return [...acc, ...filteredProperties];
   }, []);
-  
 
   return (
     <>
@@ -39,13 +40,22 @@ const Search = () => {
         <input type="text" value={categoryToSearch} onChange={handleChange} />
         <button type="submit">Search</button>
       </form>
-      {filteredDishes.map((dish) => (
-                <div key={dish.name}>
-                <img src={dish.image} alt={dish.name} />
-                <h3>{dish.name}</h3>
-                <p>Price: {dish.price}</p>
-              </div>
-      ))}
+      {submitted && filteredDishes.length ? (
+        filteredDishes.map((dish) => (
+          <div key={dish.name}>
+            <img src={dish.image} alt={dish.name} />
+            <h3>{dish.name}</h3>
+            <p>Price: {dish.price}</p>
+          </div>
+        ))
+      ) : (
+        submitted && (
+          <div>
+          <img src="https://res.cloudinary.com/dxwzyjefd/image/upload/v1677027958/sprint4/gui-images/notfound.png" alt="not found" />
+          <p>Nothing found</p>
+          </div>
+        )
+      )}
     </>
   );
 };

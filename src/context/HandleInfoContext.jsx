@@ -19,7 +19,8 @@ export function InfoProvider({ children }) {
     const [restaurantToSend, setrestaurantToSend] = useState(null)
     // Estado de pago, se usa en Checkout.jsx
     const [payCheck, setpayCheck] = useState(false)
-
+    //Estado que contiene el plato seleccionado para ver sus detalles, se usa en orderDetails.jsx
+    const [dishToDetails, setDishToDetails] = useState(null)
 
     useEffect(() => {
     }, []);
@@ -39,6 +40,8 @@ export function InfoProvider({ children }) {
                     setrestaurantToSend,
                     payCheck,
                     setpayCheck,
+                    dishToDetails,
+                    setDishToDetails,
                 }}
             >
                 {children}

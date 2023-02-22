@@ -14,6 +14,7 @@ import Restaurant from './pages/Restaurant'
 import Checkout from './pages/Checkout'
 import OrderAccepted from './pages/OrderAccepted'
 import CurrentOrder from './pages/CurrentOrder'
+import OrderDetails from './pages/OrderDetails'
 function App() {
 
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
             <Route path="/orderaccepted" element={<ProtectedRoute><OrderAccepted /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
             <Route path="/currentOrder" element={<ProtectedRoute><CurrentOrder /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
+            <Route path="/orderdetails" element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
 
 
             <Route path="/login" element={<Login />} />

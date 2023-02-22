@@ -10,7 +10,7 @@ const OrderAcepted = () => {
     <>
     <div>
         <h1>Order is accepted</h1>
-        <img src="" alt="" />
+        <img src="https://res.cloudinary.com/dxwzyjefd/image/upload/v1677027720/sprint4/gui-images/done.png" alt="Order done image" />
 
     </div>
     <div>
