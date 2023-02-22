@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
+import { Alert } from '../components/Alert';
 import { useInfo } from '../context/HandleInfoContext';
 
 const Product = () => {
   const { productSelected, restaurantToSend } = useInfo();
   const [quantity, setQuantity] = useState(1); // Estado local para controlar la cantidad
+  const [alertWarning, setAlertWarning] = useState(false)
+  const [alertSuccess, setAlertSuccess] = useState(false)
 
   const addToCart = () => {
     const { id, nameR, logo } = restaurantToSend;
     const { name, price, image, idItem } = productSelected;
 
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
+    let newOrders = [];//Array vacio en caso de que ya exita un pedido para el restaurante seleccionado
     // Buscamos si ya hay un pedido con el mismo id de restaurante
     let existingOrder = orders.find(order => order.id === id);
 
     if (existingOrder) {
+      
+      setAlertSuccess(true)//muestra un mensaje de exito
+
+      // Restablece el valor de alertWarning a false después de 2 segundos
+      setTimeout(() => {
+        setAlertSuccess(false);
+      }, 5000);
       // Si ya existe un pedido para este restaurante, agregamos el nuevo plato a su arreglo de platos
       let existingDish = existingOrder.dishes.find(dish => dish.id === idItem);
 
@@ -33,7 +43,15 @@ const Product = () => {
       }
     } else {
       // Si no existe un pedido para este restaurante, creamos uno nuevo
-      orders.push({
+      localStorage.clear();
+      setAlertWarning(true)//muestra un mensaje de advertencia
+
+      // Restablece el valor de alertWarning a false después de 2 segundos
+      setTimeout(() => {
+        setAlertWarning(false);
+      }, 5000);
+
+      newOrders.push({
         id: id,
         name: nameR,
         logo: logo,
@@ -45,6 +63,8 @@ const Product = () => {
           image: image
         }]
       });
+      orders = newOrders;
+
     }
 
     // Almacenamos el arreglo actualizado en el localStorage
@@ -82,6 +102,8 @@ const Product = () => {
 
   return (
     <div>
+      {alertSuccess && <Alert message='You added a product to Cart' color='green' />}
+      {alertWarning && <Alert message='You added a product from another Restaurant, we deleted your previous order' color='orange' />}
       <img src={productSelected.image} alt="Product image" />
       <div>
         <h1>{productSelected.name}</h1>
