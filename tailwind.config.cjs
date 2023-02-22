@@ -7,7 +7,9 @@ module.exports = {
     extend: {
       fontFamily: {
         josefin: "'Josefin Sans', 'serif'",
-      }
+      },colors: {
+        "yellow-1000": "#FFE031",
+      },
     },
   },
   plugins: [],

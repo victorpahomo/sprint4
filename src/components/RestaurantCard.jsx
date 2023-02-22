@@ -1,43 +1,33 @@
-import React from 'react'
-import { useData } from '../context/DataContext'
-import { useInfo } from '../context/HandleInfoContext'
-import { useNavigate } from 'react-router-dom'
-const RestaurantCard = () => {
-    const { saveData, updatedDbFirestore,findCategory } = useData()
-    const {setRestaurantSelected} = useInfo()
-    const navigate = useNavigate()
-/*     //USando Query  
-    const prueba = async () => {
-        console.log(await findCategory("snacks"));
-    }
-    prueba()
-    console.log(updatedDbFirestore);
-     */
-    
-    const handleClick = (restaurant) => {
-        setRestaurantSelected(restaurant)
-        navigate("/restaurant")
-    }
-   
-    return (
-        <div>
-            {
-                updatedDbFirestore && Object.keys(updatedDbFirestore).map((key) => {
-                    return (
-                        <div onClick={()=>handleClick(updatedDbFirestore[key])} key={key}>
-                            <img src={updatedDbFirestore[key].banner} alt="" />
-                            <h1>{updatedDbFirestore[key].name}</h1>
-                            <h1>{updatedDbFirestore[key].stars}</h1>
-                            <h1>{updatedDbFirestore[key].schedule}</h1>
-                            <p>{updatedDbFirestore[key].description}</p>
-                        </div>
-                    )
-                })
-                
-            }
-            <h1></h1>
-        </div>
-    )
-}
+import React from 'react';
+import { useData } from '../context/DataContext';
+import { useInfo } from '../context/HandleInfoContext';
+import { useNavigate } from 'react-router-dom';
 
-export default RestaurantCard
+const RestaurantCard = ({ category }) => {
+  const { updatedDbFirestore } = useData();
+  const { setRestaurantSelected } = useInfo();
+  const navigate = useNavigate();
+
+  function handleClick(restaurant) {
+    setRestaurantSelected(restaurant);
+    navigate('/restaurant');
+  }
+  function getRestaurantsToRender() {
+    const restaurants = category === 'all' || category === ""
+      ? Object.values(updatedDbFirestore)
+      : Object.values(updatedDbFirestore).filter(obj => obj['food-categories'].includes(category));
+    return restaurants.map(restaurant => (
+      <div onClick={() => handleClick(restaurant)} key={restaurant.id}>
+        <img src={restaurant.banner} alt='' />
+        <h1>{restaurant.name}</h1>
+        <h1>{restaurant.stars}</h1>
+        <h1>{restaurant.schedule}</h1>
+        <p>{restaurant.description}</p>
+      </div>
+    ));
+  }
+
+  return <React.Fragment>{getRestaurantsToRender()}</React.Fragment>;
+};
+
+export default RestaurantCard;
