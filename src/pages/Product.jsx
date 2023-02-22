@@ -101,28 +101,29 @@ const Product = () => {
   
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center py-8">
       {alertSuccess && <Alert message='You added a product to Cart' color='green' />}
       {alertWarning && <Alert message='You added a product from another Restaurant, we deleted your previous order' color='orange' />}
-      <img src={productSelected.image} alt="Product image" />
-      <div>
-        <h1>{productSelected.name}</h1>
-        <p>{productSelected.cookingTime}</p>
+      <img className="w-72 h-52 md:w-96 md:h-72 rounded-xl mb-4" src={productSelected.image} alt="Product image" />
+      <div className="flex items-center mb-4">
+        <h1 className="text-2xl font-medium mr-4">{productSelected.name}</h1>
+        <p className="text-slate-500">{productSelected.cookingTime}</p>
       </div>
-
-      <p>{productSelected.description}</p>
-      <p>{productSelected.price}</p>
-
-      <div>
-        <button onClick={()=> {addToCart(); updateOrderTotal()}}>Agregar al carrito</button>
-        <div>
-          <button onClick={() => handleQuantityChange(-1)}>-</button>
-          <span>{quantity}</span>
-          <button onClick={() => handleQuantityChange(1)}>+</button>
+  
+      <p className="text-slate-800 text-lg mb-4">{productSelected.description}</p>
+      <p className="text-red-500 text-xl font-medium mb-6">$ {productSelected.price}</p>
+  
+      <div className="flex justify-between items-center w-full mb-8">
+        <button className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-6 rounded-lg" onClick={()=> {addToCart(); updateOrderTotal()}}>Agregar al carrito</button>
+        <div className="flex items-center bg-gray-100 rounded-lg py-2 px-4">
+          <button className="text-gray-700 font-medium" onClick={() => handleQuantityChange(-1)}>-</button>
+          <span className="text-xl font-medium mx-4">{quantity}</span>
+          <button className="text-gray-700 font-medium" onClick={() => handleQuantityChange(1)}>+</button>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default Product;
