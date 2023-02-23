@@ -35,7 +35,7 @@ const Restaurant = () => {
                 <path d="M10 1l2.928 6.763 6.072.414-4.64 4.123 1.51 6.432L10 14.897l-6.87 3.536 1.51-6.432L.072 8.177l6.072-.414L10 1z" />
               </svg>
             </div>
-            <p className="text-center text-gray-500 mb-4">10min - 30min</p>
+            <p className="text-center text-gray-500 mb-4">10 - 30 min</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {restaurantSelected.menu.map((item, index) => {
                 return (

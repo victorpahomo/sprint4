@@ -3,7 +3,7 @@ import { Alert } from '../components/Alert';
 import { useInfo } from '../context/HandleInfoContext';
 import { useNavigate } from 'react-router-dom';
 const Product = () => {
-  const { productSelected, restaurantToSend } = useInfo();
+  const { productSelected, restaurantToSend, setpayCheck} = useInfo();
   const [quantity, setQuantity] = useState(1); // Estado local para controlar la cantidad
   const [alertWarning, setAlertWarning] = useState(false)
   const [alertSuccess, setAlertSuccess] = useState(false)
@@ -11,8 +11,7 @@ const Product = () => {
   
   const addToCart = () => {
     const { id, nameR, logo } = restaurantToSend;
-    const { name, price, image, idItem } = productSelected;
-
+    const { name, price, image, idItem, cookingTimeMin,cookingTimeMax} = productSelected;
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
     let newOrders = [];//Array vacio en caso de que ya exita un pedido para el restaurante seleccionado
     // Buscamos si ya hay un pedido con el mismo id de restaurante
@@ -41,12 +40,17 @@ const Product = () => {
           quantity: quantity,
           name: name,
           price: price,
-          image: image
+          image: image,
+          cookingTimeMin: cookingTimeMin,
+          cookingTimeMax: cookingTimeMax
         });
       }
     } else {
       // Si no existe un pedido para este restaurante, creamos uno nuevo
-      localStorage.clear();
+      localStorage.removeItem("orders");
+      localStorage.removeItem("total");
+      localStorage.removeItem("totalItems");
+      setpayCheck(false);
       setAlertWarning(true)//muestra un mensaje de advertencia
 
       // Restablece el valor de alertWarning a false después de 2 segundos
@@ -64,7 +68,9 @@ const Product = () => {
           quantity: quantity,
           name: name,
           price: price,
-          image: image
+          image: image,
+          cookingTimeMin: cookingTimeMin,
+          cookingTimeMax: cookingTimeMax
         }]
       });
       orders = newOrders;
