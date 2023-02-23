@@ -75,17 +75,17 @@ const Search = () => {
             ? filteredDishes.map((dish) => (
               <div
                 onClick={() => handleClick(dish)}// al hacer clic en un plato, se establece el restaurante seleccionado en el contexto
-                className="flex w-full h-14 justify-item items-center gap-2 ml-14"
+                className="flex w-full h-auto mt-4 justify-item items-center gap-2 ml-2"
                 key={dish.name}
               >
                 <img
-                  className="w-20 h-12 rounded-xl"
+                  className="w-28 h-20 rounded-xl"
                   src={dish.image}
                   alt={dish.name}
                 />
                 <div>
-                  <h3>{dish.name}</h3>
-                  <p className="text-slate-400">$ {dish.price}.00</p>
+                  <h3 className='pl-2 text-lg'>{dish.name}</h3>
+                  <p className="pl-2 text-slate-400">$ {dish.price}</p>
                 </div>
               </div>
             ))

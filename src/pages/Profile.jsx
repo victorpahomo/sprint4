@@ -13,6 +13,9 @@ const Profile = () => {
       console.error(error.message);
     }
   };
+  const handleClick = () => {
+
+  }
 
   return (
     <div className="flex w-screen h-screen items-center justify-center pb-28 md:pb-11">
@@ -44,8 +47,8 @@ const Profile = () => {
             {user.displayName}
           </h3>
         )}
-
-        <div className="w-full h-16 rounded-xl bg-stone-100 flex items-center pl-2 pr-2 justify-between hover:bg-slate-200 md:w-full cursor-pointer">
+        {/* Primer boton */}
+        <div onClick={handleClick} className="w-full h-16 rounded-xl bg-stone-100 flex items-center pl-2 pr-2 justify-between hover:bg-slate-200 md:w-full cursor-pointer">
           <div className="flex gap-4 items-center">
             <svg
               width="32"
@@ -78,6 +81,7 @@ const Profile = () => {
             />
           </svg>
         </div>
+
         <div className="w-full h-16 rounded-xl bg-stone-100 flex items-center pl-2 pr-2 justify-between hover:bg-slate-200 md:w-full cursor-pointer">
           <div className="flex gap-4 items-center h-full">
             <svg
@@ -296,8 +300,10 @@ const Profile = () => {
         </div>
 
       </div>
-      <div onClick={handleLogout} className="fixed top-5 right-5">
-      <button onClick={handleLogout}>Logout</button>
+      <div className="fixed top-5 right-5">
+        <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          Logout
+        </button>
       </div>
       <Navbar />
     </div>
