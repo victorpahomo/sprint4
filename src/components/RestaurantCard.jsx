@@ -2,6 +2,7 @@ import React from 'react';
 import { useData } from '../context/DataContext';
 import { useInfo } from '../context/HandleInfoContext';
 import { useNavigate } from 'react-router-dom';
+import StarRating from './StartRating';
 
 const RestaurantCard = ({ category }) => {
   const { updatedDbFirestore } = useData();
@@ -26,7 +27,7 @@ const RestaurantCard = ({ category }) => {
           <div>
             <h1 className="text-xl font-bold mb-2">{restaurant.name}</h1>
             <div className="flex justify-between mb-2">
-              <h1 className="text-sm font-medium">{restaurant.stars}</h1>
+              <StarRating rating={restaurant.stars} maxStars="5"/>
               <h1 className="text-sm font-medium">{restaurant.schedule}</h1>
             </div>
             <p className="text-sm">{restaurant.description}</p>

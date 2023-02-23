@@ -125,7 +125,7 @@ export function AuthProvider({ children }) {
   
   const updateProfilePicture = async (photoURL) => {
     try {
-      await user.updateProfile({ photoURL });
+      await user.updateProfile({ photoURL: photoURL });
       console.log("La photoURL se ha actualizado correctamente");
     } catch (error) {
       console.error("Se produjo un error al actualizar la photoURL:", error);

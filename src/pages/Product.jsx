@@ -123,7 +123,7 @@ const Product = () => {
       )}
       <div className="justify-center items-center flex flex-wrap  w-11/12 gap-2 mt-1 md:grid md:grid-cols-2">
         <img
-          className="flex w-3/4 "
+          className="flex w-3/4 rounded-lg"
           src={productSelected.image}
           alt="Product image"
         />

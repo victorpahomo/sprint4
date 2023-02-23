@@ -20,15 +20,15 @@ const Home = () => {
         <div>
         
           <p className='text-yellow-400 pl-3'>DELIVER TO</p>
-          <div class="relative">
-            <select class="block appearance-none w-auto bg-white hover: px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <div className="relative">
+            <select className="block appearance-none w-auto bg-white hover: px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
               <option>883 Poblado, Medellin</option>
               <option>975 Colinas,Manizales</option>
               <option>215 Cerritos, Pereira</option>
               <option>967 Pance, Cali</option>
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg class="fill-current h-4 w-4" viewBox="0 0 20 20"><path d="M7 10l5 5 5-5z" /></svg>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg className="fill-current h-4 w-4" viewBox="0 0 20 20"><path d="M7 10l5 5 5-5z" /></svg>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { Alert } from '../components/Alert';
 import { useInfo } from '../context/HandleInfoContext'
 import { useNavigate } from 'react-router-dom';
 import Cart from '../components/Cart';
+import StarRating from '../components/StartRating';
 
 const Restaurant = () => {
   const { restaurantSelected, setProductSelected, setrestaurantToSend } = useInfo();
@@ -34,10 +35,8 @@ const Restaurant = () => {
                 
                 <div className="flex items-center justify-between mt-8">
                   <div className='flex items-center'>
-                    <p className="text-left text-yellow-400 mr-1">{restaurantSelected.stars}</p>
-                    <svg className="h-4 w-4 fill-current text-yellow-400" viewBox="0 0 20 20">
-                      <path d="M10 1l2.928 6.763 6.072.414-4.64 4.123 1.51 6.432L10 14.897l-6.87 3.536 1.51-6.432L.072 8.177l6.072-.414L10 1z" />
-                    </svg>
+                    <StarRating rating={restaurantSelected.stars} maxStars="5" />
+                 
                   </div>
                   <p className="text-center w-24 rounded-lg bg-gray-200 text-gray-500 mb-4">10 - 30 min</p>
                 </div>
