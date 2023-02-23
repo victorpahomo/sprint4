@@ -15,6 +15,7 @@ import Checkout from './pages/Checkout'
 import OrderAccepted from './pages/OrderAccepted'
 import CurrentOrder from './pages/CurrentOrder'
 import OrderDetails from './pages/OrderDetails'
+import EditProfile from './pages/EditProfile'
 function App() {
 
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/orderaccepted" element={<ProtectedRoute><OrderAccepted /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
             <Route path="/currentOrder" element={<ProtectedRoute><CurrentOrder /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
             <Route path="/orderdetails" element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
+            <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} /> {/* ProtectedRoute is used to protect the routes that are only accessible to authenticated users */}
 
 
             <Route path="/login" element={<Login />} />

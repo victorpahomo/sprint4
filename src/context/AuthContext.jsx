@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from "firebase/auth"
-import { auth, db } from "../api/firebase";
+import {updateProfile,updateEmail, getAuth} from "firebase/auth"
+import { auth, db,storage } from "../api/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes} from "firebase/storage";
 // Contexto
 const authContext = createContext();
 
@@ -103,6 +105,57 @@ export function AuthProvider({ children }) {
     }
   };
 
+/*   const updateAuthSession = async (displayName, photoURL) => {
+    try {
+      // Actualizar los campos de sesión del usuario
+      await user.updateProfile({ displayName, photoURL });
+      console.log("Los campos de sesión del usuario se han actualizado correctamente");
+    } catch (error) {
+      console.error("Se produjo un error al actualizar los campos de sesión del usuario:", error);
+    }
+  } */
+  const updateDisplayName = async (displayName) => {
+    try {
+      await user.updateProfile({ displayName });
+      console.log("El displayName se ha actualizado correctamente");
+    } catch (error) {
+      console.error("Se produjo un error al actualizar el displayName:", error);
+    }
+  }
+  
+  const updateProfilePicture = async (photoURL) => {
+    try {
+      await user.updateProfile({ photoURL });
+      console.log("La photoURL se ha actualizado correctamente");
+    } catch (error) {
+      console.error("Se produjo un error al actualizar la photoURL:", error);
+    }
+  }
+  
+
+  const updateEmail = async (newEmail) => {
+    try {
+      // Actualizar el correo electrónico del usuario
+      const authEmail = getAuth();
+      await authEmail.currentUser.updateEmail(newEmail);
+      console.log("El correo electrónico del usuario se ha actualizado correctamente");
+    } catch (error) {
+      console.error("Se produjo un error al actualizar el correo electrónico del usuario:", error);
+    }
+  }
+
+const uploadFile = async (file,id) => {
+    try {
+     const storageRef = ref(storage,id)
+     await uploadBytes(storageRef, file)
+     const url = await getDownloadURL(storageRef)
+     return url
+    } catch (error) {
+      console.error("Error on upload", error);
+    }
+  }
+  
+
 
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -123,6 +176,10 @@ export function AuthProvider({ children }) {
         loading,
         loginWithGoogle,
         loginWithFacebook,
+        updateDisplayName,
+        updateProfilePicture,
+        updateEmail,
+        uploadFile
       }}
     >
       {children}

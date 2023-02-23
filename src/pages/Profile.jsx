@@ -1,11 +1,11 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../layout/Navbar";
-
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { logout, user } = useAuth();
-
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       await logout();
@@ -14,7 +14,7 @@ const Profile = () => {
     }
   };
   const handleClick = () => {
-
+    navigate("/editprofile");
   }
 
   return (
