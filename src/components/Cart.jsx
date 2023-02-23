@@ -33,7 +33,7 @@ const Cart = () => {
       <div className="flex w-6 h-5 bg-slate-700 text-center justify-center items-center rounded-md text-white">
         <p>{totalItems}</p>
       </div>
-      <p>View Card</p>
+      <p>View Cart</p>
       <p>$ {total}</p>
     </div>
   ) : null;

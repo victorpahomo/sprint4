@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Navbar from '../layout/Navbar';
 import { useData } from '../context/DataContext';
 import { useNavigate } from 'react-router-dom';
+import { useInfo } from '../context/HandleInfoContext';
 const Search = () => {
   const { findCategory } = useData();
   const [categoryToSearch, setCategoryToSearch] = useState('');
   const [dishesObtained, setDishesObtained] = useState([]);
   const [submitted, setSubmitted] = useState(false); // Variable para saber si se econtró el palto a buscar
+  const {setRestaurantSelected} = useInfo();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,19 +25,20 @@ const Search = () => {
     await searchDishes();
     setSubmitted(true); // establecer submitted en true después de hacer clic en enviar
   };
-
   const filteredDishes = dishesObtained.reduce((acc, curr) => {
     const filtered = curr.menu.filter((dish) => dish.category === categoryToSearch);
     const filteredProperties = filtered.map((dish) => ({
       name: dish.name,
       image: dish.image,
-      price: dish.price
+      price: dish.price,
+      curr: curr// agregar el restaurante actual al objeto
     }));
     return [...acc, ...filteredProperties];
   }, []);
 
-  const handleClick = () => {
-    navigate("/product");
+  const handleClick = (obj) => {
+    setRestaurantSelected(obj.curr);// establecer el restaurante seleccionado en el contexto
+    navigate("/restaurant");
   }
 
   return (
@@ -81,7 +84,7 @@ const Search = () => {
           {submitted && filteredDishes.length
             ? filteredDishes.map((dish) => (
                 <div
-                  onClick={handleClick}
+                  onClick={()=> handleClick(dish)}// al hacer clic en un plato, se establece el restaurante seleccionado en el contexto
                   className="flex w-full h-14 justify-item items-center gap-2 ml-14"
                   key={dish.name}
                 >
