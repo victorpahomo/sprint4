@@ -28,7 +28,7 @@ const Cart = () => {
   return showComponent ? (
     <div
       onClick={handleClick}
-      className="fixed bottom-10 left-0 right-0 bg-yellow-1000 p-2 flex justify-between items-center cursor-pointer hover:bg-yellow-400 "
+      className="fixed bottom-10 rounded-lg left-0 right-10 bg-yellow-1000 p-3 flex justify-between items-center cursor-pointer hover:bg-yellow-400 "
     >
       <div className="flex w-6 h-5 bg-slate-700 text-center justify-center items-center rounded-md text-white">
         <p>{totalItems}</p>
