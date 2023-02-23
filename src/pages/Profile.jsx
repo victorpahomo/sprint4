@@ -14,16 +14,7 @@ console.log(user);
       console.error(error.message);
     }
   };
-/* 
-  const data = {
-    5: {
 
-      name: "Restaurant Prueba",
-      description: "Restaurant de prueba"
-    }
-    saveData(data)
-  } */
-  
 
   return (
     <div>

@@ -114,12 +114,12 @@ export function DataProvider({ children }) {
         const getDbFirestore = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, "restaurant"));
-                const docs = []
+ /*                const docs = []
                 querySnapshot.forEach((doc) => {
                     docs.push({ ...doc.data(), id: doc.id })
-                });
-                setDbFirestore(docs)
-                setUpdatedDbFirestore(docs) // Inicializamos la variable actualizada con la información original
+                }); */
+                setDbFirestore(querySnapshot.docs.map((doc) => doc.data()))
+                setUpdatedDbFirestore(querySnapshot.docs.map((doc) => doc.data())) // Inicializamos la variable actualizada con la información original
             } catch (error) {
                 console.log(error);
             }

@@ -8,7 +8,7 @@ const Search = () => {
   const [categoryToSearch, setCategoryToSearch] = useState('');
   const [dishesObtained, setDishesObtained] = useState([]);
   const [submitted, setSubmitted] = useState(false); // Variable para saber si se econtró el palto a buscar
-  const {setRestaurantSelected} = useInfo();
+  const {setRestaurantSelected,setrestaurantToSend,setProductSelected} = useInfo();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,17 +28,22 @@ const Search = () => {
   const filteredDishes = dishesObtained.reduce((acc, curr) => {
     const filtered = curr.menu.filter((dish) => dish.category === categoryToSearch);
     const filteredProperties = filtered.map((dish) => ({
-      name: dish.name,
-      image: dish.image,
-      price: dish.price,
+      name: dish.name,// agregar el nombre del plato al objeto
+      image: dish.image,// agregar la imagen del plato al objeto
+      price: dish.price,//  agregar el precio del plato al objeto
+      idItem: dish.idItem,// agregar el id del plato al objeto
+      cookingTimeMin: dish.cookingTimeMin ,// agregar el tiempo de preparación mínimo del plato al objeto
+      cookingTimeMax: dish.cookingTimeMax,// agregar el tiempo de preparación máximo del plato al objeto
       curr: curr// agregar el restaurante actual al objeto
     }));
     return [...acc, ...filteredProperties];
   }, []);
 
   const handleClick = (obj) => {
-    setRestaurantSelected(obj.curr);// establecer el restaurante seleccionado en el contexto
-    navigate("/restaurant");
+    setrestaurantToSend(obj.curr);// establecer el restaurante seleccionado en el contexto
+    setProductSelected(obj);// establecer el plato seleccionado en el contexto
+    setRestaurantSelected(obj.curr);// establecer el restaurante seleccionado en el contexto  
+    navigate("/product");
   }
 
   return (
