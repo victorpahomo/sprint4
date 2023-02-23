@@ -77,7 +77,9 @@ const CurrentOrder = () => {
                     <p className="text-sm font-bold">5000$</p>
                 </div>
             </div>
-            <button onClick={handleClick} className="w-full md:w-1/2 bg-yellow-1000 text-black py-2 px-4 rounded-full mt-5 md:mx-auto block">Go Home</button>
+            <div className='flex flex-col items-center p-4 h-screen'>
+            <button onClick={handleClick} className="bg-yellow-1000 hover:bg-yellow-400 text-slate-800 text-lg md:text-xl py-2 px-4 mb-5 rounded-xl  fixed bottom-0 w-1/2 md:fixed none transform hover:scale-105 transition-all duration-200 ease-in-out">Go Home</button>
+            </div>
 
         </div>
     )
